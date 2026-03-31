@@ -1,7 +1,7 @@
 package com.codeartify.examples.parking_spot_reservation.controller;
 
 import com.codeartify.examples.parking_spot_reservation.dto.ParkingReservationRequest;
-import com.codeartify.examples.parking_spot_reservation.service.ParkingSpotReservationService;
+import com.codeartify.examples.parking_spot_reservation.service.ParkingReservationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class ParkingSpotReservationController {
 
-    private final ParkingSpotReservationService parkingSpotReservationService;
+    private final ParkingReservationService parkingSpotReservationService;
 
 
     @PostMapping("/reserveSpot")
