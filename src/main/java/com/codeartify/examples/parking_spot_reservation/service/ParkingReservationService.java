@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Service
@@ -28,22 +29,26 @@ public class ParkingReservationService {
 
     @Transactional
     public ResponseEntity<Object> reserveParkingSpot(ParkingReservationRequest request) {
-        if (Duration.between(request.getStartTime(), request.getEndTime()).toMinutes() < 30) {
+        final var reservedBy = request.getReservedBy();
+        final var startTime = request.getStartTime();
+        final var endTime = request.getEndTime();
+        
+        if (Duration.between(startTime, endTime).toMinutes() < 30) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Reservation must be at least 30 minutes long.");
         }
 
-        if (request.getEndTime().isBefore(request.getStartTime())) {
+        if (endTime.isBefore(startTime)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("End time must be after start time.");
         }
 
-        if (request.getStartTime().toLocalTime().isBefore(OPENING_TIME) || request.getEndTime().toLocalTime().isAfter(CLOSING_TIME)) {
+        if (startTime.toLocalTime().isBefore(OPENING_TIME) || endTime.toLocalTime().isAfter(CLOSING_TIME)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Reservations can only be made between 6:00 AM and 10:00 PM.");
         }
-        
-        final var hasActiveReservation = parkingReservationRepository.hasActiveReservation(request.getReservedBy(), request.getStartTime(), request.getEndTime());
+
+        final var hasActiveReservation = parkingReservationRepository.hasActiveReservation(reservedBy, startTime, endTime);
         if (hasActiveReservation) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body("You already have an active reservation.");
@@ -55,10 +60,10 @@ public class ParkingReservationService {
         }
         
         final var reservation = new ParkingReservation(
-                request.getReservedBy(),
+                reservedBy,
                 spot.getId(),
-                request.getStartTime(),
-                request.getEndTime());
+                startTime,
+                endTime);
         parkingReservationRepository.save(reservation);
 
         spot.setAvailable(false);
@@ -66,9 +71,9 @@ public class ParkingReservationService {
 
         final var response = new ParkingReservationResponse();
         response.setReservationId(reservation.getId());
-        response.setReservedBy(request.getReservedBy());
-        response.setStartTime(request.getStartTime());
-        response.setEndTime(request.getEndTime());
+        response.setReservedBy(reservedBy);
+        response.setStartTime(startTime);
+        response.setEndTime(endTime);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
