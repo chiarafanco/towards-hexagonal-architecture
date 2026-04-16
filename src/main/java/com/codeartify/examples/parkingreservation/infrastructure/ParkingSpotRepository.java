@@ -1,4 +1,4 @@
-package com.codeartify.examples.parkingreservation.repository;
+package com.codeartify.examples.parkingreservation.infrastructure;
 
 import com.codeartify.examples.parkingreservation.model.ParkingSpot;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package com.codeartify.examples.parkingreservation.controller;
+package com.codeartify.examples.parkingreservation.presentation;
 
 import java.time.LocalDateTime;
 

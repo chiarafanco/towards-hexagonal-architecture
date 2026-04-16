@@ -1,8 +1,8 @@
 package com.codeartify.examples.parkingreservation.service;
 
 import com.codeartify.examples.parkingreservation.model.ParkingReservation;
-import com.codeartify.examples.parkingreservation.repository.ParkingReservationRepository;
-import com.codeartify.examples.parkingreservation.repository.ParkingSpotRepository;
+import com.codeartify.examples.parkingreservation.infrastructure.ParkingReservationRepository;
+import com.codeartify.examples.parkingreservation.infrastructure.ParkingSpotRepository;
 import com.codeartify.examples.parkingreservation.service.ParkingReservationException.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
