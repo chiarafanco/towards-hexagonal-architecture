@@ -1,4 +1,4 @@
-package com.codeartify.examples.parking_spot_reservation.model;
+package com.codeartify.examples.parkingreservation.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

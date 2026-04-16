@@ -1,11 +1,12 @@
-package com.codeartify.examples.parking_spot_reservation;
+package com.codeartify.examples.parkingreservation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ParkingSpotReservationApplication {
+public class ParkingReservationApplication {
+    
     public static void main(String[] args) {
-        SpringApplication.run(ParkingSpotReservationApplication.class, args);
+        SpringApplication.run(ParkingReservationApplication.class, args);
     }
 }
