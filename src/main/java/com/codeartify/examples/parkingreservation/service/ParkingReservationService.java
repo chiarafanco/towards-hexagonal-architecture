@@ -1,9 +1,9 @@
 package com.codeartify.examples.parkingreservation.service;
 
+import com.codeartify.examples.parkingreservation.infrastructure.ParkingReservationAdapter;
 import com.codeartify.examples.parkingreservation.model.ParkingReservation;
 import com.codeartify.examples.parkingreservation.infrastructure.ParkingReservationRepository;
 import com.codeartify.examples.parkingreservation.infrastructure.ParkingSpotRepository;
-import com.codeartify.examples.parkingreservation.service.ParkingReservationException.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,29 +21,30 @@ public class ParkingReservationService {
     
     private final ParkingSpotRepository parkingSpotRepository;
     private final ParkingReservationRepository parkingReservationRepository;
+    private final ParkingReservationAdapter parkingReservationAdapter;
 
     @Transactional
     public long reserveSpot(String reservedBy, LocalDateTime startTime, LocalDateTime endTime) {
         if (endTime.isBefore(startTime)) {
-            throw new PeriodEndBeforeStartException();
+            throw new ParkingReservationException.EndBeforeStart();
         }
 
         if (Duration.between(startTime, endTime).toMinutes() < 30) {
-            throw new PeriodTooShortException();
+            throw new ParkingReservationException.DurationTooShort();
         }
 
         if (startTime.toLocalTime().isBefore(OPENING_TIME) || endTime.toLocalTime().isAfter(CLOSING_TIME)) {
-            throw new PeriodOutsideOperatingHoursException();
+            throw new ParkingReservationException.OutsideOperatingHours();
         }
 
-        final var hasActiveReservation = parkingReservationRepository.hasActiveReservation(reservedBy, startTime, endTime);
-        if (hasActiveReservation) {
-            throw new AlreadyExistsException();
+        final var overlapping = parkingReservationAdapter.isOverlapping(reservedBy, startTime, endTime);
+        if (overlapping) {
+            throw new ParkingReservationException.Overlapping();
         }
 
         final var spot = parkingSpotRepository.findAnyAvailableSpot();
         if (spot == null) {
-            throw new SpotUnavailableException();
+            throw new ParkingReservationException.SpotUnavailable();
         }
 
         final var reservation = new ParkingReservation(
@@ -58,5 +59,6 @@ public class ParkingReservationService {
         
         return reservation.getId();
     }
+
 }
 

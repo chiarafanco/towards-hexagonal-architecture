@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 class ParkingReservationExceptionHandler {
     
     @ExceptionHandler
-    ProblemDetail handleException(ParkingReservationException.AlreadyExistsException e) {
+    ProblemDetail handleException(ParkingReservationException.Overlapping e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
     }
 
     @ExceptionHandler
-    ProblemDetail handleException(ParkingReservationException.SpotUnavailableException e) {
+    ProblemDetail handleException(ParkingReservationException.SpotUnavailable e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
     }
 
