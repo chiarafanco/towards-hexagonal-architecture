@@ -16,7 +16,7 @@ class ParkingSpotEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private boolean available;
+    private boolean isAvailable;
 
     ParkingSpotEntity() {
     }

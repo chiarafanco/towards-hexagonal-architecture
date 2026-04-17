@@ -1,7 +1,6 @@
 package com.codeartify.examples.parkingreservation.service;
 
 import com.codeartify.examples.parkingreservation.model.ParkingReservation;
-import com.codeartify.examples.parkingreservation.persistence.ParkingSpotJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +16,7 @@ public class ParkingReservationService {
     private static final LocalTime OPENING_TIME = LocalTime.of(6, 0); // 6:00 AM
     private static final LocalTime CLOSING_TIME = LocalTime.of(22, 0); // 10:00 PM
     
-    private final ParkingSpotJpaRepository parkingSpotRepository;
+    private final ParkingSpotRepository parkingSpotRepository;
     private final ParkingReservationRepository parkingReservationRepository;
 
     @Transactional
@@ -38,13 +37,11 @@ public class ParkingReservationService {
             throw new ParkingReservationException.Overlapping();
         }
 
-        final var spot = parkingSpotRepository.findAnyAvailableSpot();
-        if (spot == null) {
-            throw new ParkingReservationException.SpotUnavailable();
-        }
+        final var spot = parkingSpotRepository.findAnyAvailable()
+                .orElseThrow(ParkingReservationException.SpotUnavailable::new);
         
         final var reservation = ParkingReservation.builder()
-                .spotId(spot.getId())
+                .spotId(spot.id())
                 .reservedBy(reservedBy)
                 .startTime(startTime)
                 .endTime(endTime)
