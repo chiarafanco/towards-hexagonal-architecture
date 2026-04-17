@@ -1,4 +1,4 @@
-package com.codeartify.examples.parkingreservation.service;
+package com.codeartify.examples.parkingreservation.application;
 
 import lombok.experimental.StandardException;
 

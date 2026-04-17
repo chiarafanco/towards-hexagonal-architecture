@@ -1,4 +1,4 @@
-package com.codeartify.examples.parkingreservation.model;
+package com.codeartify.examples.parkingreservation.application;
 
 import lombok.Builder;
 import lombok.NonNull;

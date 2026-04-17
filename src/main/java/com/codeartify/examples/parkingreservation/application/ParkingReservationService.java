@@ -1,6 +1,5 @@
-package com.codeartify.examples.parkingreservation.service;
+package com.codeartify.examples.parkingreservation.application;
 
-import com.codeartify.examples.parkingreservation.model.ParkingReservation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

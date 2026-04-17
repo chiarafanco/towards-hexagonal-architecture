@@ -1,7 +1,7 @@
 package com.codeartify.examples.parkingreservation.persistence;
 
-import com.codeartify.examples.parkingreservation.model.ParkingSpot;
-import com.codeartify.examples.parkingreservation.service.ParkingSpotRepository;
+import com.codeartify.examples.parkingreservation.application.ParkingSpot;
+import com.codeartify.examples.parkingreservation.application.ParkingSpotRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

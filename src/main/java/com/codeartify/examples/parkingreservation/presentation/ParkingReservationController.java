@@ -1,6 +1,6 @@
 package com.codeartify.examples.parkingreservation.presentation;
 
-import com.codeartify.examples.parkingreservation.service.ParkingReservationService;
+import com.codeartify.examples.parkingreservation.application.ParkingReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;

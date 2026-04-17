@@ -1,6 +1,6 @@
 package com.codeartify.examples.parkingreservation.presentation;
 
-import com.codeartify.examples.parkingreservation.service.ParkingReservationException;
+import com.codeartify.examples.parkingreservation.application.ParkingReservationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;

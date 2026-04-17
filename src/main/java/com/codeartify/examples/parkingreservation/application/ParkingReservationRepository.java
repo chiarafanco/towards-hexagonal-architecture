@@ -1,6 +1,4 @@
-package com.codeartify.examples.parkingreservation.service;
-
-import com.codeartify.examples.parkingreservation.model.ParkingReservation;
+package com.codeartify.examples.parkingreservation.application;
 
 import java.time.LocalDateTime;
 
