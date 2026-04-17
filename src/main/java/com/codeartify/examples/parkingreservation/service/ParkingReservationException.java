@@ -31,7 +31,6 @@ public abstract sealed class ParkingReservationException extends RuntimeExceptio
         public Overlapping() {
             super("Reservation overlaps with an existing one");
         }
-
     }
     
     public static final class SpotUnavailable extends ParkingReservationException {

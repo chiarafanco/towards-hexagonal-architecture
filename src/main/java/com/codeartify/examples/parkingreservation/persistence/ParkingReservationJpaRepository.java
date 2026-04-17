@@ -1,12 +1,11 @@
-package com.codeartify.examples.parkingreservation.infrastructure;
+package com.codeartify.examples.parkingreservation.persistence;
 
-import com.codeartify.examples.parkingreservation.model.ParkingReservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDateTime;
 
-public interface ParkingReservationRepository extends JpaRepository<ParkingReservation, Long> {
+public interface ParkingReservationJpaRepository extends JpaRepository<ParkingReservationEntity, Long> {
 
     @Query("""
             SELECT COUNT(r) > 0
@@ -15,5 +14,5 @@ public interface ParkingReservationRepository extends JpaRepository<ParkingReser
             AND r.startTime < :endTime
             AND r.endTime > :startTime
             """)
-    boolean existsOverlapping(String reservedBy, LocalDateTime startTime, LocalDateTime endTime);
+    boolean existsOverlap(String reservedBy, LocalDateTime startTime, LocalDateTime endTime);
 }

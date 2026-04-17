@@ -1,39 +1,13 @@
 package com.codeartify.examples.parkingreservation.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.NonNull;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Getter
-@Setter
-public class ParkingReservation {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String reservedBy;
-
-    private Long spotId;
-
-    private LocalDateTime startTime;
-
-    private LocalDateTime endTime;
-
-    public ParkingReservation(String reservedBy, Long spotId, LocalDateTime startTime, LocalDateTime endTime) {
-        this.reservedBy = reservedBy;
-        this.spotId = spotId;
-        this.startTime = startTime;
-        this.endTime = endTime;
-    }
-
-    public ParkingReservation() {
-
-    }
+@Builder
+public record ParkingReservation(long spotId,
+                                 @NonNull String reservedBy,
+                                 @NonNull LocalDateTime startTime,
+                                 @NonNull LocalDateTime endTime) {
 }
