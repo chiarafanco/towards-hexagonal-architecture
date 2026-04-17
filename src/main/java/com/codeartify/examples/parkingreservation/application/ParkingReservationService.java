@@ -19,6 +19,10 @@ public class ParkingReservationService {
     private final ParkingReservationRepository parkingReservationRepository;
 
     @Transactional
+    public long reserveSpot(String reservedBy, ReservationPeriod period) {
+        return reserveSpot(reservedBy, period.startTime(), period.endTime());
+    }
+    
     public long reserveSpot(String reservedBy, LocalDateTime startTime, LocalDateTime endTime) {
         if (endTime.isBefore(startTime)) {
             throw new ParkingReservationException.EndBeforeStart();
@@ -47,6 +51,5 @@ public class ParkingReservationService {
                 .build();
         return parkingReservationRepository.save(reservation);
     }
-
 }
 

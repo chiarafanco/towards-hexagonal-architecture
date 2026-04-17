@@ -1,6 +1,7 @@
 package com.codeartify.examples.parkingreservation.presentation;
 
 import com.codeartify.examples.parkingreservation.application.ParkingReservationService;
+import com.codeartify.examples.parkingreservation.application.ReservationPeriod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +20,7 @@ class ParkingReservationController {
     ParkingReservationResponse reserveSpot(@RequestBody ParkingReservationRequest request) {
         final var reservationId = parkingReservationService.reserveSpot(
                 request.reservedBy(),
-                request.startTime(),
-                request.endTime());
+                new ReservationPeriod(request.startTime(), request.endTime()));
         
         return ParkingReservationResponse.builder()
                 .reservationId(reservationId)
