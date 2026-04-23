@@ -21,8 +21,7 @@ public class ParkingReservationService {
         final var parkingSpot = parkingSpotRepository.findAnyAvailable()
                 .orElseThrow(ParkingReservationException.SpotUnavailable::new);
         
-        final var reservation = ParkingReservation.reserve(reserverId, parkingSpot, reservationPeriod);
-        return parkingReservationRepository.save(reservation);
+        final var parkingReservation = ParkingReservation.reserveSpot(reserverId, parkingSpot, reservationPeriod);
+        return parkingReservationRepository.save(parkingReservation);
     }
 }
-
