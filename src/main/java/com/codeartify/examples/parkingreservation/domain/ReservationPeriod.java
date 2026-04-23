@@ -1,4 +1,4 @@
-package com.codeartify.examples.parkingreservation.application;
+package com.codeartify.examples.parkingreservation.domain;
 
 import lombok.NonNull;
 

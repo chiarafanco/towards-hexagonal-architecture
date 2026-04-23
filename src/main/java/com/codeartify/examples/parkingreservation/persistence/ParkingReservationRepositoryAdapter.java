@@ -1,8 +1,8 @@
 package com.codeartify.examples.parkingreservation.persistence;
 
-import com.codeartify.examples.parkingreservation.application.ParkingReservation;
+import com.codeartify.examples.parkingreservation.domain.ParkingReservation;
 import com.codeartify.examples.parkingreservation.application.ParkingReservationRepository;
-import com.codeartify.examples.parkingreservation.application.ReservationPeriod;
+import com.codeartify.examples.parkingreservation.domain.ReservationPeriod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

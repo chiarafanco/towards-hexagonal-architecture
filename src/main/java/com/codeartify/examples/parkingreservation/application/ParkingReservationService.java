@@ -1,5 +1,8 @@
 package com.codeartify.examples.parkingreservation.application;
 
+import com.codeartify.examples.parkingreservation.domain.ParkingReservation;
+import com.codeartify.examples.parkingreservation.domain.ParkingReservationException;
+import com.codeartify.examples.parkingreservation.domain.ReservationPeriod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
