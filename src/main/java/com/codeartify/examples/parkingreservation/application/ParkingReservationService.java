@@ -1,6 +1,6 @@
 package com.codeartify.examples.parkingreservation.application;
 
-import com.codeartify.examples.parkingreservation.domain.ParkingReservation;
+import com.codeartify.examples.parkingreservation.domain.ParkingReservation2;
 import com.codeartify.examples.parkingreservation.domain.ParkingReservationException;
 import com.codeartify.examples.parkingreservation.domain.ReservationPeriod;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +23,10 @@ public class ParkingReservationService {
         final var spot = parkingSpotRepository.findAnyAvailable()
                 .orElseThrow(ParkingReservationException.SpotUnavailable::new);
 
-        final var reservation = ParkingReservation.builder()
+        final var reservation = ParkingReservation2.builder()
                 .spotId(spot.id())
                 .reservedBy(reservedBy)
-                .reservationPeriod(reservationPeriod)
+                .period(reservationPeriod)
                 .build();
         return parkingReservationRepository.save(reservation);
     }

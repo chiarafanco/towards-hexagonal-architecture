@@ -1,6 +1,6 @@
 package com.codeartify.examples.parkingreservation.persistence;
 
-import com.codeartify.examples.parkingreservation.domain.ParkingReservation;
+import com.codeartify.examples.parkingreservation.domain.ParkingReservation2;
 import com.codeartify.examples.parkingreservation.application.ParkingReservationRepository;
 import com.codeartify.examples.parkingreservation.domain.ReservationPeriod;
 import lombok.RequiredArgsConstructor;
@@ -19,17 +19,17 @@ class ParkingReservationRepositoryAdapter implements ParkingReservationRepositor
     }
     
     @Override
-    public long save(ParkingReservation reservation) {
+    public long save(ParkingReservation2 reservation) {
         final var spotEntity = new ParkingSpotEntity();
-        spotEntity.setId(reservation.spotId());
+        spotEntity.setId(reservation.spotId().value());
         spotEntity.setAvailable(false);
         spotJpaRepository.save(spotEntity);
 
         final var reservationEntity = new ParkingReservationEntity();
-        reservationEntity.setSpotId(reservation.spotId());
+        reservationEntity.setSpotId(reservation.spotId().value());
         reservationEntity.setReservedBy(reservation.reservedBy());
-        reservationEntity.setStartTime(reservation.reservationPeriod().startTime());
-        reservationEntity.setEndTime(reservation.reservationPeriod().endTime());
+        reservationEntity.setStartTime(reservation.period().startTime());
+        reservationEntity.setEndTime(reservation.period().endTime());
         return reservationJpaRepository.save(reservationEntity).getId();
     }
 }
