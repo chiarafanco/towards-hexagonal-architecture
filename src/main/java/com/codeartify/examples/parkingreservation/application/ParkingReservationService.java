@@ -1,8 +1,6 @@
 package com.codeartify.examples.parkingreservation.application;
 
-import com.codeartify.examples.parkingreservation.domain.ParkingReservation2;
-import com.codeartify.examples.parkingreservation.domain.ParkingReservationException;
-import com.codeartify.examples.parkingreservation.domain.ReservationPeriod;
+import com.codeartify.examples.parkingreservation.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,21 +13,16 @@ public class ParkingReservationService {
     private final ParkingReservationRepository parkingReservationRepository;
 
     @Transactional
-    public long reserveSpot(String reservedBy, ReservationPeriod reservationPeriod) {
-        if (parkingReservationRepository.existsOverlap(reservedBy, reservationPeriod)) {
+    public long reserveSpot(ReserverId reserverId, ReservationPeriod reservationPeriod) {
+        if (parkingReservationRepository.existsOverlap(reserverId, reservationPeriod)) {
             throw new ParkingReservationException.Overlapping();
         }
 
-        final var spot = parkingSpotRepository.findAnyAvailable()
+        final var parkingSpot = parkingSpotRepository.findAnyAvailable()
                 .orElseThrow(ParkingReservationException.SpotUnavailable::new);
-
-        final var reservation = ParkingReservation2.builder()
-                .spotId(spot.id())
-                .reservedBy(reservedBy)
-                .period(reservationPeriod)
-                .build();
+        
+        final var reservation = ParkingReservation.reserve(reserverId, parkingSpot, reservationPeriod);
         return parkingReservationRepository.save(reservation);
     }
-
 }
 

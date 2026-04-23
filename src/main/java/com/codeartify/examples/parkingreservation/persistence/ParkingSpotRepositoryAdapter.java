@@ -1,8 +1,7 @@
 package com.codeartify.examples.parkingreservation.persistence;
 
-import com.codeartify.examples.parkingreservation.domain.ParkingSpot2;
 import com.codeartify.examples.parkingreservation.application.ParkingSpotRepository;
-import com.codeartify.examples.parkingreservation.domain.ParkingSpotId;
+import com.codeartify.examples.parkingreservation.domain.ParkingSpot;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -15,10 +14,8 @@ class ParkingSpotRepositoryAdapter implements ParkingSpotRepository {
     private final ParkingSpotJpaRepository spotJpaRepository;
     
     @Override
-    public Optional<ParkingSpot2> findAnyAvailable() {
+    public Optional<ParkingSpot> findAnyAvailable() {
         return spotJpaRepository.findAnyAvailable()
-                .map(ParkingSpotEntity::getId)
-                .map(ParkingSpotId::new)
-                .map(spotId -> new ParkingSpot2(spotId, true));
+                .map(ParkingSpotMapper::map);
     }
 }

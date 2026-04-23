@@ -9,7 +9,7 @@ public class ParkingSpot {
     
     private final ParkingSpotId id;
     private final ParkingSpotStatus status;
-    
+
     public ParkingSpot reserve() {
         return new ParkingSpot(id, ParkingSpotStatus.RESERVED);
     }

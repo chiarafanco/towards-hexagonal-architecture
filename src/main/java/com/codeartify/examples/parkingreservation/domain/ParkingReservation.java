@@ -7,14 +7,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ParkingReservation {
 
+    private final ReserverId reserverId;
     private final ParkingSpot parkingSpot;
     private final ReservationPeriod reservationPeriod;
-    private final ReservingMemberId reservingMemberId;
     
-    public static ParkingReservation create(ParkingSpot parkingSpot,
-                                            ReservationPeriod reservationPeriod,
-                                            ReservingMemberId reservingMemberId) {
-        final ParkingSpot reservedSpot = parkingSpot.reserve();
-        return new ParkingReservation(reservedSpot, reservationPeriod, reservingMemberId);
+    public static ParkingReservation reserve(ReserverId reserverId,
+                                             ParkingSpot parkingSpot,
+                                             ReservationPeriod reservationPeriod) {
+        final var reservedSpot = parkingSpot.reserve();
+        return new ParkingReservation(reserverId, reservedSpot, reservationPeriod);
     }
 }
