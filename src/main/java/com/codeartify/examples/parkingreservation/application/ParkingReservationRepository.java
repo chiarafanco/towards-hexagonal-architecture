@@ -1,10 +1,7 @@
 package com.codeartify.examples.parkingreservation.application;
 
-import java.time.LocalDateTime;
-
 public interface ParkingReservationRepository {
 
-    boolean existsOverlap(String reservedBy, LocalDateTime startTime, LocalDateTime endTime);
-    
+    boolean existsOverlap(String reservedBy, ReservationPeriod reservationPeriod);
     long save(ParkingReservation reservation);
 }

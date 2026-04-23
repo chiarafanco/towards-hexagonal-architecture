@@ -20,7 +20,7 @@ class ParkingReservationController {
     ParkingReservationResponse reserveSpot(@RequestBody ParkingReservationRequest request) {
         final var reservationId = parkingReservationService.reserveSpot(
                 request.reservedBy(),
-                new ReservationPeriod(request.startTime(), request.endTime()));
+                ReservationPeriod.of(request.startTime(), request.endTime()));
         
         return ParkingReservationResponse.builder()
                 .reservationId(reservationId)

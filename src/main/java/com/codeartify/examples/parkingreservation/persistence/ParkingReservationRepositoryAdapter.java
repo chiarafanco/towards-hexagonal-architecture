@@ -2,10 +2,9 @@ package com.codeartify.examples.parkingreservation.persistence;
 
 import com.codeartify.examples.parkingreservation.application.ParkingReservation;
 import com.codeartify.examples.parkingreservation.application.ParkingReservationRepository;
+import com.codeartify.examples.parkingreservation.application.ReservationPeriod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
-import java.time.LocalDateTime;
 
 @Repository
 @RequiredArgsConstructor
@@ -13,10 +12,10 @@ class ParkingReservationRepositoryAdapter implements ParkingReservationRepositor
 
     private final ParkingSpotJpaRepository spotJpaRepository;
     private final ParkingReservationJpaRepository reservationJpaRepository;
-    
+
     @Override
-    public boolean existsOverlap(String reservedBy, LocalDateTime startTime, LocalDateTime endTime) {
-        return reservationJpaRepository.existsOverlap(reservedBy, startTime, endTime);
+    public boolean existsOverlap(String reservedBy, ReservationPeriod reservationPeriod) {
+        return reservationJpaRepository.existsOverlap(reservedBy, reservationPeriod.startTime(), reservationPeriod.endTime());
     }
     
     @Override
@@ -29,8 +28,8 @@ class ParkingReservationRepositoryAdapter implements ParkingReservationRepositor
         final var reservationEntity = new ParkingReservationEntity();
         reservationEntity.setSpotId(reservation.spotId());
         reservationEntity.setReservedBy(reservation.reservedBy());
-        reservationEntity.setStartTime(reservation.startTime());
-        reservationEntity.setEndTime(reservation.endTime());
+        reservationEntity.setStartTime(reservation.reservationPeriod().startTime());
+        reservationEntity.setEndTime(reservation.reservationPeriod().endTime());
         return reservationJpaRepository.save(reservationEntity).getId();
     }
 }
