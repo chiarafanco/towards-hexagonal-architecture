@@ -14,11 +14,11 @@ public class ParkingReservationService {
 
     @Transactional
     public long reserveSpot(ReserverId reserverId, ReservationPeriod reservationPeriod) {
-        if (parkingReservationRepository.existsOverlap(reserverId, reservationPeriod)) {
+        if (parkingReservationRepository.hasOverlap(reserverId, reservationPeriod)) {
             throw new ParkingReservationException.Overlapping();
         }
 
-        final var parkingSpot = parkingSpotRepository.findAnyAvailable()
+        final var parkingSpot = parkingSpotRepository.findAvailable()
                 .orElseThrow(ParkingReservationException.SpotUnavailable::new);
         
         final var parkingReservation = ParkingReservation.reserveSpot(reserverId, parkingSpot, reservationPeriod);

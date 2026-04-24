@@ -14,8 +14,8 @@ class ParkingSpotRepositoryAdapter implements ParkingSpotRepository {
     private final ParkingSpotJpaRepository spotJpaRepository;
     
     @Override
-    public Optional<ParkingSpot> findAnyAvailable() {
-        return spotJpaRepository.findAnyAvailable()
+    public Optional<ParkingSpot> findAvailable() {
+        return spotJpaRepository.findRandomAvailable()
                 .map(ParkingSpotMapper::map);
     }
 }

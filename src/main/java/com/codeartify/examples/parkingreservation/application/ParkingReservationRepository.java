@@ -7,5 +7,5 @@ import com.codeartify.examples.parkingreservation.domain.ReserverId;
 public interface ParkingReservationRepository {
 
     long save(ParkingReservation reservation);
-    boolean existsOverlap(ReserverId reserverId, ReservationPeriod reservationPeriod);
+    boolean hasOverlap(ReserverId reserverId, ReservationPeriod reservationPeriod);
 }

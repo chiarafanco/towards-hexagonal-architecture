@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface ParkingSpotRepository {
     
-    Optional<ParkingSpot> findAnyAvailable();
+    Optional<ParkingSpot> findAvailable();
 }

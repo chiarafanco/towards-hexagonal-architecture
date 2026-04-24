@@ -24,7 +24,7 @@ class ParkingReservationRepositoryAdapter implements ParkingReservationRepositor
     }
 
     @Override
-    public boolean existsOverlap(ReserverId reserverId, ReservationPeriod reservationPeriod) {
+    public boolean hasOverlap(ReserverId reserverId, ReservationPeriod reservationPeriod) {
         return reservationJpaRepository.existsOverlap(
                 reserverId.value(),
                 reservationPeriod.startTime(),
