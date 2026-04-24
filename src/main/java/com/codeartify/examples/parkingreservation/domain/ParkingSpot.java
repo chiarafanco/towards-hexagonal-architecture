@@ -11,6 +11,9 @@ public class ParkingSpot {
     private final ParkingSpotStatus status;
 
     public ParkingSpot reserve() {
+        if (status != ParkingSpotStatus.AVAILABLE) {
+            throw new IllegalStateException("Cannot reserve an unavailable spot");
+        }
         return new ParkingSpot(id, ParkingSpotStatus.RESERVED);
     }
 }

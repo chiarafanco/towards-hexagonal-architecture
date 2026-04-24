@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 class ParkingReservationExceptionHandler {
     
     @ExceptionHandler
-    ProblemDetail handleException(ParkingReservationException.Overlapping e) {
+    ProblemDetail handle(ParkingReservationException.Overlapping e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
     }
 
     @ExceptionHandler
-    ProblemDetail handleException(ParkingReservationException.SpotUnavailable e) {
+    ProblemDetail handle(ParkingReservationException.SpotUnavailable e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
     }
 
     @ExceptionHandler
-    ProblemDetail handleException(ParkingReservationException e) {
+    ProblemDetail handle(ParkingReservationException e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 }
