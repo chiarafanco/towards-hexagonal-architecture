@@ -2,6 +2,9 @@ package com.codeartify.examples.parkingreservation.domain;
 
 import lombok.experimental.StandardException;
 
+/**
+ * Domain Exception: Errors that I could handle using the Result Object pattern.
+ */
 @StandardException
 public abstract sealed class ParkingReservationException extends RuntimeException {
 
